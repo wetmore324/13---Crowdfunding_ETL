@@ -2,11 +2,15 @@
 -- Link to schema: https://app.quickdatabasediagrams.com/#/d/TljgCf
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
+drop table if exists "Category"
+drop table if exists "Subcategory"
+drop table if exists "Campaign"
+drop table if exists "Contacts"
 
 CREATE TABLE "Campaign" (
     "cf_id" int   NOT NULL,
     "contact_id" int   NOT NULL,
-    "company_name" varchar(100)   NOT NULL,
+    "company_name" varchar(30)   NOT NULL,
     "description" text   NOT NULL,
     "goal" numeric(10,2)   NOT NULL,
     "pledged" numeric(10,2)   NOT NULL,
@@ -27,6 +31,8 @@ CREATE TABLE "Campaign" (
         "cf_id"
      )
 );
+
+
 
 CREATE TABLE "Contacts" (
     "contact_id" int   NOT NULL,
