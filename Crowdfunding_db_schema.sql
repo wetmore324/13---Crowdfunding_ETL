@@ -6,10 +6,10 @@
 CREATE TABLE "Campaign" (
     "cf_id" int   NOT NULL,
     "contact_id" int   NOT NULL,
-    "company_name" varchar(30)   NOT NULL,
-    "description" varchar(500)   NOT NULL,
-    "goal" int   NOT NULL,
-    "pledged" int   NOT NULL,
+    "company_name" varchar(100)   NOT NULL,
+    "description" text   NOT NULL,
+    "goal" numeric(10,2)   NOT NULL,
+    "pledged" numeric(10,2)   NOT NULL,
     "outcome" varchar(30)   NOT NULL,
     "backers_count" int   NOT NULL,
     "country" varchar(10)   NOT NULL,
@@ -18,13 +18,13 @@ CREATE TABLE "Campaign" (
     "end_date" date   NOT NULL,
     "staff_pick" varchar(5)   NOT NULL,
     "spotlight" varchar(5)   NOT NULL,
-    "category_subcategory" varchar(30)   NOT NULL,
+    "category & sub-category" varchar(30)   NOT NULL,
     "category" varchar(30)   NOT NULL,
     "subcategory" varchar(30)   NOT NULL,
     "category_id" varchar(10)   NOT NULL,
     "subcategory_id" varchar(10)   NOT NULL,
     CONSTRAINT "pk_Campaign" PRIMARY KEY (
-        "contact_id"
+        "cf_id"
      )
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE "Contacts" (
 
 CREATE TABLE "Category" (
     "category_id" varchar(10)   NOT NULL,
-    "category" varchar(10)   NOT NULL,
+    "category" varchar(50)   NOT NULL,
     CONSTRAINT "pk_Category" PRIMARY KEY (
         "category_id"
      )
@@ -47,18 +47,18 @@ CREATE TABLE "Category" (
 
 CREATE TABLE "Subcategory" (
     "subcategory_id" varchar(10)   NOT NULL,
-    "subcategory" varchar(10)   NOT NULL,
+    "subcategory" varchar(50)   NOT NULL,
     CONSTRAINT "pk_Subcategory" PRIMARY KEY (
         "subcategory_id"
      )
 );
+
+ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign_contact_id" FOREIGN KEY("contact_id")
+REFERENCES "Contacts" ("contact_id");
 
 ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign_category_id" FOREIGN KEY("category_id")
 REFERENCES "Category" ("category_id");
 
 ALTER TABLE "Campaign" ADD CONSTRAINT "fk_Campaign_subcategory_id" FOREIGN KEY("subcategory_id")
 REFERENCES "Subcategory" ("subcategory_id");
-
-ALTER TABLE "Contacts" ADD CONSTRAINT "fk_Contacts_contact_id" FOREIGN KEY("contact_id")
-REFERENCES "Campaign" ("contact_id");
 
